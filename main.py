@@ -18,7 +18,7 @@ from Script.Model.LLama_Local import Local_LLama
 #paraphrase-multilingual-mpnet-base-v2
 #multi-qa-mpnet-base-dot-v1
 
-model_doc=Document('Dataset/','Real_Hotel_Rule_Italiano_Aug.csv')
+model_doc=Document('Dataset/','Document.csv')
 model_BERT=BERT_Model("paraphrase-multilingual-mpnet-base-v2", SentenceTransformer )
 model_doc.load_document(0)
 
@@ -54,4 +54,7 @@ def get_data():
         return jsonify({"message":error_message,"response":False})
     
 if __name__ == '__main__':
+
+
+
     app.run()

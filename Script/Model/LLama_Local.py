@@ -38,7 +38,7 @@ class Local_LLama():
 
 
 
-    response = self.client.chat (model='llama3', messages=[
+    response = self.client.chat (model='llama3.2:3b', messages=[
       {'role': 'system', 'content': 'You are  assistant that answers the question in '+leng,
       'role': 'user', 'content': "Answer to the question: '" + question + "' considering the text:'"+ text + "' in " +leng+". Just write the answer. In case the information is not present answer with: 'The information is not provided by the document'."}
 
