@@ -39,9 +39,9 @@ def get_data():
 
     print(data)
 
-    if data['mode']=="domande":
+    #if data['mode']=="domande":
 
-        return question(data)
+    return question(data)
 
 
 
@@ -68,7 +68,6 @@ def question(data):
         output=model_LLama.answer(question, output)
 
 
-        print(output)
 
 
         #memory.save_context({"input": user_input}, {"output": output})
