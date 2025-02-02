@@ -39,9 +39,24 @@ def get_data():
 
     print(data)
 
-    #if data['mode']=="domande":
+    if data['mode']=="domande":
 
-    return question(data)
+        return question(data)
+
+    else: 
+
+        return survey(data)
+
+
+def survey(data):
+
+
+    print(data)
+
+
+
+
+
 
 
 
@@ -56,16 +71,16 @@ def get_data():
 
 def question(data):
 
-    print("ciao")
 
     question=data.get('data')
 
     try:
         chatbot=Pipeline_Chatbot(model_BERT,question,model_doc.document_splitting('£'),model_doc.document_encoding(model_BERT),0)
         output = chatbot.pred_best_answer().replace("\n","")
-
-
         output=model_LLama.answer(question, output)
+
+
+        print(output)
 
 
 

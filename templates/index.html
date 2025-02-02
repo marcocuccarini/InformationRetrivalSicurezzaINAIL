@@ -251,14 +251,13 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ data: userinput, mode: mode, cont: general_cont })
+                body: JSON.stringify({ data: userinput, mode: mode, cont: general_cont++ })
 
 
             });
             let json = await response.json();
-            general_cont++
+            
 
-            document.getElementById('cont').placeholder = cont 
 
 
             document.getElementById('userinput').placeholder = "Il tuo messaggio..."
@@ -266,12 +265,14 @@
 
             if (json.response) {
                 let message = json.message
+
                 message = message.toString()
+
       
                 upperdiv.innerHTML = upperdiv.innerHTML + `<div class="message">
                 <div class="appmessagediv">
                     <div class="appmessage" id="temp">
-                          ${message}
+
                     </div>
                 </div>
             </div>`
