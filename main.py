@@ -36,6 +36,28 @@ def index():
 def get_data():
 
     data = request.get_json()
+
+    print(data)
+
+    if data['mode']=="domande":
+
+        return question(data)
+
+
+
+
+
+
+
+
+
+
+
+
+def question(data):
+
+    print("ciao")
+
     question=data.get('data')
 
     try:
@@ -46,13 +68,18 @@ def get_data():
         output=model_LLama.answer(question, output)
 
 
+        print(output)
+
+
         #memory.save_context({"input": user_input}, {"output": output})
         return jsonify({"response":True,"message":output})
+
     except Exception as e:
+
         print(e)
         error_message = f'Error: {str(e)}'
         return jsonify({"message":error_message,"response":False})
-    
+        
 if __name__ == '__main__':
 
 
