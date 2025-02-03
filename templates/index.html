@@ -262,21 +262,37 @@
 
             document.getElementById('userinput').placeholder = "Il tuo messaggio..."
    
+            
 
             if (json.response) {
                 let message = json.message
-
                 message = message.toString()
 
-      
-                upperdiv.innerHTML = upperdiv.innerHTML + `<div class="message">
-                <div class="appmessagediv">
-                    <div class="appmessage" id="temp">
+                let nextquestion = json.nextquestion
+                nextquestion = nextquestion.toString()
 
-                    </div>
-                </div>
-            </div>`
+            
+                upperdiv.innerHTML = upperdiv.innerHTML + `<div class="message">
+                                                                <div class="appmessagediv">
+                                                                    <div class="appmessage" id="temp">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>`
+                
+                upperdiv.innerHTML = upperdiv.innerHTML + `<div class="message">
+                                                                <div class="appmessagediv">
+                                                                    <div class="appmessage" id="temp1">
+                                                                                
+                                                                    </div>
+                                                                </div>
+                                                            </div>`   
+
+
+
                 let temp = document.getElementById('temp')
+                let temp1 = document.getElementById('temp1')
+
                 let index = 0
                 function displayNextLetter() {
                     scrollToBottom()
@@ -285,31 +301,56 @@
                         index++;
                         setTimeout(displayNextLetter, 30);
                     } else {
-                        temp.removeAttribute('id')
+
+                        let index=0
+
+                        displayNextLetter1()
+                    }
+                }
+
+                function displayNextLetter1() {
+                    scrollToBottom()
+                    if (index < nextquestion.length) {
+                        temp1.innerHTML = temp1.innerHTML + nextquestion[index];
+                        index++;
+                        setTimeout(displayNextLetter1, 30);
+                    } else {
+
+                        temp1.removeAttribute('id')
                         sendbtn.disabled = false
                         userinputarea.disabled = false
                     }
                 }
+
+
                 displayNextLetter()
                 scrollToBottom()
+
+
+               
+
+
 
             }
             else {
                 let message = json.message
                 upperdiv.innerHTML = upperdiv.innerHTML +
                     `<div class="message">
-                <div class="appmessagediv">
-                    <div class="appmessage"  style="border: 1px solid red;">
-                      ${message}
+                        <div class="appmessagediv">
+                            <div class="appmessage"  style="border: 1px solid red;">
+                              ${message}
+                            </div>
+                        </div>
+                    </div>`
 
-                    </div>
-                </div>
-            </div>`
                 sendbtn.disabled = false
                 userinputarea.disabled = false
-                displayNextLetter()
 
+                displayNextLetter()
                 scrollToBottom()
+
+
+
 
             }
 
