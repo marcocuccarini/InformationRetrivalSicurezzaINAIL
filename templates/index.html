@@ -242,12 +242,12 @@
             let mode = document.getElementById('mode').value;
 
             upperdiv.innerHTML = upperdiv.innerHTML + `<div class="message">
-                <div class="usermessagediv">
-                        <div class="usermessage">
-                            ${userinput}
-                        </div>
-                </div>
-            </div>`
+                                                            <div class="usermessagediv">
+                                                                    <div class="usermessage">
+                                                                        ${userinput}
+                                                                    </div>
+                                                            </div>
+                                                        </div>`
             sendbtn.disabled = true
             userinputarea.disabled = true
             scrollToBottom()
@@ -272,37 +272,55 @@
    
             
 
-            if (json.response) {
-                let message = json.message
-                message = message.toString()
-            
-                upperdiv.innerHTML = upperdiv.innerHTML + `<div class="message">
-                                                                <div class="appmessagediv">
-                                                                    <div class="appmessage" id="temp">
+if (json.response) {
+    
+        {let messages = [json.message.toString(), json.nextquestion.toString()];
+        let messageIndex = 0;
 
-                                                                    </div>
-                                                                </div>
-                                                            </div>`
+        function createMessageElement() {
+            let messageContainer = document.createElement("div");
+            messageContainer.classList.add("message");
 
-                let temp = document.getElementById('temp')
-                let index = 0
-                function displayNextLetter() {
-                    scrollToBottom()
-                    if (index < message.length) {
-                        temp.innerHTML = temp.innerHTML + message[index];
-                        index++;
-                        setTimeout(displayNextLetter, 30);
-                    } else {
-                        temp.removeAttribute('id')
-                        sendbtn.disabled = false
-                        userinputarea.disabled = false
-                    }
-                }
+            let appMessageDiv = document.createElement("div");
+            appMessageDiv.classList.add("appmessagediv");
 
-                displayNextLetter()
-                scrollToBottom()
+            let appMessage = document.createElement("div");
+            appMessage.classList.add("appmessage");
+            appMessage.setAttribute("id", "temp");
 
+            appMessageDiv.appendChild(appMessage);
+            messageContainer.appendChild(appMessageDiv);
+            upperdiv.appendChild(messageContainer);
+
+            return appMessage;
+        }
+
+        function displayNextLetter(temp, message, index, callback) {
+            if (index < message.length) {
+                temp.innerHTML += message[index];
+                setTimeout(() => displayNextLetter(temp, message, index + 1, callback), 30);
+            } else {
+                temp.removeAttribute("id");
+                callback();
             }
+        }
+
+        function sendNextMessage() {
+            if (messageIndex < messages.length) {
+                let temp = createMessageElement();
+                displayNextLetter(temp, messages[messageIndex], 0, () => {
+                    messageIndex++;
+                    sendNextMessage();
+                });
+            } else {
+                sendbtn.disabled = false;
+                userinputarea.disabled = false;
+            }
+        }
+
+        sendNextMessage();}
+}
+
             else {
 
                 let message = json.message
