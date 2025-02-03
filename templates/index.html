@@ -178,18 +178,26 @@
             let upperdiv = document.getElementById('upperid')
             userinput1="Ciao, sono un assistenza di intelligenza artificiale, ti assiterò durate la compilazione del questionario sull'uso sicuro di un videterminale"
             userinput2="Iniziamo il questionaro, io ti sottopporrò dell domande e tu dovrai rispondere in amniera breve"
+            userinput3="Ti consideri un videoterminalista?"
             upperdiv.innerHTML = upperdiv.innerHTML + `
             <div class="message">
-                <div class="usermessagediv">
-                    <div class="usermessage">
+                <div class="appmessagediv">
+                    <div class="appmessage">
                         ${userinput1}
                     </div>
                 </div>
             </div>
             <div class="message">
-                <div class="usermessagediv">
-                    <div class="usermessage">
+                <div class="appmessagediv">
+                    <div class="appmessage">
                         ${userinput2}
+                    </div>
+                </div>
+            </div>
+            <div class="message">
+                <div class="appmessagediv">
+                    <div class="appmessage">
+                        ${userinput3}
                     </div>
                 </div>
             </div>`
@@ -267,10 +275,6 @@
             if (json.response) {
                 let message = json.message
                 message = message.toString()
-
-                let nextquestion = json.nextquestion
-                nextquestion = nextquestion.toString()
-
             
                 upperdiv.innerHTML = upperdiv.innerHTML + `<div class="message">
                                                                 <div class="appmessagediv">
@@ -279,20 +283,8 @@
                                                                     </div>
                                                                 </div>
                                                             </div>`
-                
-                upperdiv.innerHTML = upperdiv.innerHTML + `<div class="message">
-                                                                <div class="appmessagediv">
-                                                                    <div class="appmessage" id="temp1">
-                                                                                
-                                                                    </div>
-                                                                </div>
-                                                            </div>`   
-
-
 
                 let temp = document.getElementById('temp')
-                let temp1 = document.getElementById('temp1')
-
                 let index = 0
                 function displayNextLetter() {
                     scrollToBottom()
@@ -301,38 +293,18 @@
                         index++;
                         setTimeout(displayNextLetter, 30);
                     } else {
-
-                        let index=0
-
-                        displayNextLetter1()
-                    }
-                }
-
-                function displayNextLetter1() {
-                    scrollToBottom()
-                    if (index < nextquestion.length) {
-                        temp1.innerHTML = temp1.innerHTML + nextquestion[index];
-                        index++;
-                        setTimeout(displayNextLetter1, 30);
-                    } else {
-
-                        temp1.removeAttribute('id')
+                        temp.removeAttribute('id')
                         sendbtn.disabled = false
                         userinputarea.disabled = false
                     }
                 }
 
-
                 displayNextLetter()
                 scrollToBottom()
 
-
-               
-
-
-
             }
             else {
+
                 let message = json.message
                 upperdiv.innerHTML = upperdiv.innerHTML +
                     `<div class="message">
