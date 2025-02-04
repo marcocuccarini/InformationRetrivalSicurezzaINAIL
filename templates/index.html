@@ -78,7 +78,7 @@
 
         #mode {
             
-            color: gray;
+            color: black;
             position: fixed;
             bottom: 975px;
             left: 1000px;
@@ -88,12 +88,22 @@
 
         #modebutt {
             
-            color: gray;
+            color: black;
             position: fixed;
             bottom: 975px;
-            left: 1350px;
+            left: 1300px;
 
         }
+
+        .visible { 
+          visibility : visible; /* By default its visible.*/ 
+        } 
+         
+        .hidden { 
+          visibility : hidden; 
+          outline : none; /*Used to avoid keyboard events*/ 
+          pointer-events : none; /*used to avoid mouse events*/ 
+        } 
 
 
 
@@ -124,13 +134,13 @@
                 <!--<img src="Images/La-Rosetta-logo-blu-OK.png" class="h-8 mr-3"
                     alt="Flowbite Logo" />-->
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Assistenza clienti</span>
-                <div class="container mx-auto p-4">
-        <label for="mode">Seleziona Modalità:   </label>
+                <div  id="varianle" class="container mx-auto p-4">
+        <div class="visible"><label for="mode">Seleziona Modalità:   </label>
         <select id="mode" class="border p-2 rounded">
             <option value="domande">Domande Libere</option>
             <option value="questionario">Assistenza nel questionario</option>
         </select>
-        <button onclick="slectMood()" id="modebutt"  class="bg-blue-500 text-white p-2 rounded mt-2">Invia</button>
+        <button onclick="slectMood()" id="modebutt"  class="bg-blue-500 text-white p-2 rounded mt-2">Invia</button></div>
     </div>
             </a>
 
@@ -152,7 +162,11 @@
 
 
         async function slectMood()    {
-            window.alert("Ciao")
+
+             
+
+
+          
 
 
             let container = document.getElementById('container')
@@ -236,6 +250,9 @@
             scrollToBottom()
 
             }
+
+
+
 
         }
 
