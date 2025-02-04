@@ -4,7 +4,7 @@ import requests,os
 from dotenv.main import load_dotenv
 from langchain.memory import ConversationSummaryBufferMemory
 import torch
-from data import dataset_QA_survey
+from data import dataset_QA_survey, dataset_QA_survey_short
 
 from Script.Structure.Document import Document
 from Script.Model.BERTModel import BERT_Model
@@ -53,12 +53,12 @@ def survey(data):
     answer=data.get('data')
     index=data.get('cont')
     try:
-        chatbot1=Pipeline_Chatbot(model_BERT,dataset_QA_survey[index][0],model_doc.document_splitting('£'),model_doc.document_encoding(model_BERT),0)
+        chatbot1=Pipeline_Chatbot(model_BERT,dataset_QA_survey_short[index][0],model_doc.document_splitting('£'),model_doc.document_encoding(model_BERT),0)
         output1 = chatbot1.pred_best_answer().replace("\n","")
-        output=model_LLama_Survey.answer(dataset_QA_survey[index][0], dataset_QA_survey[index][1], answer, output1)
+        output=model_LLama_Survey.answer(dataset_QA_survey_short[index][0], dataset_QA_survey_short[index][1], answer, dataset_QA_survey_short[index][2])
 
         #memory.save_context({"input": user_input}, {"output": output})
-        return jsonify({"response":True,"message":output,"nextquestion": dataset_QA_survey[index+1][0]})
+        return jsonify({"response":True,"message":output,"nextquestion": dataset_QA_survey_short[index+1][0]})
 
     except Exception as e:
 
