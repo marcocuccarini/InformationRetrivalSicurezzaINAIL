@@ -12,36 +12,11 @@ class Local_LLama():
 
   def answer(self, question, text):
 
-    
-    #possible model
-    #llama3
-    dictionary= {
-            'en': 'English', 
-            'es': 'Spanish', 
-            'it': 'Italian',
-            'fr': 'French',
-            'de': 'German',
-            'pt': 'Portuguese',
-            'ru': 'Russian'
-          }
-
-    from langdetect import detect
-
-    if detect(question) in dictionary:
-
-      leng=dictionary[detect(question)]
-
-    else:
-
-      leng="English"
-
-
 
 
     response = self.client.chat (model='llama3.2:3b', messages=[
-      {'role': 'system', 'content': 'You are  assistant that answers the question in '+leng,
-      'role': 'user', 'content': "Answer to the question: '" + question + "' considering the text:'"+ text + "' in " +leng+". Just write the answer. In case the information is not present answer with: 'The information is not provided by the document'."}
-
+      {'role': 'system', 'content': 'Tu sei un assistente in lingua italiana che risponde a domande rigurdanti un documento',
+      'role': 'user', 'content': "Considerato il documento: '"+text+"' rispondi alla domanda '"+question+"' .Rispondi unicamente con le informazioni presenti nel documento. Nel caso l'informazione non è presente rispondi con: 'Informazione non presente nel documento'"}
     ])
 
 
