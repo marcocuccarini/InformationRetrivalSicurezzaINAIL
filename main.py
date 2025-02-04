@@ -58,7 +58,7 @@ def survey(data):
         output=model_LLama_Survey.answer(dataset_QA_survey[index][0], dataset_QA_survey[index][1], answer, output1)
 
         #memory.save_context({"input": user_input}, {"output": output})
-        return jsonify({"response":True,"message":output,"nextquestion": dataset_QA_survey[index+1][0],"flagquestion": True})
+        return jsonify({"response":True,"message":output,"nextquestion": dataset_QA_survey[index+1][0]})
 
     except Exception as e:
 
@@ -77,13 +77,13 @@ def question(data):
         output=model_LLama.answer(question, output)
 
         #memory.save_context({"input": user_input}, {"output": output})
-        return jsonify({"response":True,"message":output, "nextquestion": False, "flagquestion": False})
+        return jsonify({"response":True,"message":output, "nextquestion": "Posso esserti utile in qualche altro modo?"})
 
     except Exception as e:
 
         print(e)
         error_message = f'Error: {str(e)}'
-        return jsonify({"message":error_message,"response":False, "nextquestion":False, "flagquestion": False})
+        return jsonify({"message":error_message,"response":False, "nextquestion":False})
         
 if __name__ == '__main__':
 
