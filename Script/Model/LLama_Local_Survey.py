@@ -15,9 +15,9 @@ class Local_LLama_Survey():
     
     #pos
 
-    response = self.client.chat (model='deepseek-r1:7b', messages=[
-      {'role': 'system', 'content': "Tu sei l'assistente in lingua italiana",
-       'role': 'user', 'content': "La domanda: '"+question+"'  ha come risposta GIUSTA:'"+real_answer+"''. L'utente ha risposto in maniera errata:'"+answer+"'. Scrivi se l'utente ha rispsoto bene e la sua motivazione usando le informazioni presenti in:'"+text+"''. Scrivi al massimo tre righe di risposta."}])
+    response = self.client.chat (model='llama3.2:3b', messages=[
+      {'role': 'system', 'content': "Tu sei un assistente in lingua italiana",
+       'role': 'user', 'content': "La domanda: '"+question+"'  ha come risposta GIUSTA:'"+real_answer+"''. L'utente ha con :'"+answer+"'. Scrivi se l'utente ha risposto bene e la sua motivazione usando le informazioni presenti in:'"+text+"''. Rispondi molto brevemente. "}])
 
 
     if 'message' in response and 'content' in response['message']: 
