@@ -312,7 +312,7 @@
 
 if (json.response) {
     
-        {let messages = [json.message.toString(), json.nextquestion.toString()];
+        let messages = [json.message.toString(), json.nextquestion.toString()];
         let messageIndex = 0;
 
         function createMessageElement() {
@@ -356,7 +356,7 @@ if (json.response) {
             }
         }
 
-        sendNextMessage();}
+        sendNextMessage();
 }
 
             else {
